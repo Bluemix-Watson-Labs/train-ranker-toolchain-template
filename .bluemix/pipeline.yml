@@ -34,11 +34,4 @@ stages:
       application: ${CF_APP_NAME}
     script: |
       #!/bin/bash
-      # Push app
-      export CF_APP_NAME="$CF_APP"
-      cf create-service natural_language_classifier standard natural-language-classifier-standard
-      CF_ORG_SANITIZED=${CF_ORG//[![:alnum:]]}
-      cf push "${CF_APP_NAME}" -n "${CF_APP_NAME}-${CF_ORG_SANITIZED}"
-      export APP_URL=http://$(cf app $CF_APP_NAME | grep urls: | awk '{print $2}')
-      # View logs
-      #cf logs "${CF_APP_NAME}" --recent
+      python ./train-ranker.py -u ${RANK_AND_RETRIEVE_USER}:${RANK_AND_RETRIEVE_PASSWORD} -i ./cranfield-gt.csv -c ${SOLR_CLUSTER_ID} -x example_collection -n "example_ranker"
