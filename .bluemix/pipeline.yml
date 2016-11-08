@@ -10,7 +10,7 @@ stages:
   jobs:
   - name: Build
     type: builder
-- name: DEPLOY
+- name: Train Ranker
   inputs:
   - type: job
     stage: BUILD
@@ -22,7 +22,6 @@ stages:
     value: undefined
     type: text
   - name: RANK_AND_RETRIEVE_PASSWORD
-    value: undefined
     type: secure
   - name: SOLR_CLUSTER_ID
     value: undefined
@@ -35,6 +34,6 @@ stages:
       organization: ${PROD_ORG_NAME}
       space: ${PROD_SPACE_NAME}
       application: ${CF_APP_NAME}
-    script: |
+    script: |-
       #!/bin/bash
       python ./train-ranker.py -u ${RANK_AND_RETRIEVE_USER}:${RANK_AND_RETRIEVE_PASSWORD} -i ./cranfield-gt.csv -c ${SOLR_CLUSTER_ID} -x example_collection -n "example_ranker"
