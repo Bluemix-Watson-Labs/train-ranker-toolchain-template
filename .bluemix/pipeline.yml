@@ -18,10 +18,13 @@ stages:
   triggers:
   - type: stage
   properties:
-  - name: CF_APP_NAME
+  - name: RANK_AND_RETRIEVE_USER
     value: undefined
     type: text
-  - name: APP_URL
+  - name: RANK_AND_RETRIEVE_PASSWORD
+    value: undefined
+    type: secure
+  - name: SOLR_CLUSTER_ID
     value: undefined
     type: text
   jobs:
